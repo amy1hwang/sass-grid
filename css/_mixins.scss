@@ -4,6 +4,81 @@
   box-sizing: border-box;
 }
 
+@mixin font-scaling ($size, $color) {
+  h1 {
+    font-size: $size * 2;
+    color: $color;
+  }
+  h3 {
+    font-size: $size;
+    color: lighten($color, 25%);
+  }
+  h5 {
+    font-size: $size / 2;
+    color: desaturate($color, 60%);
+  }
+  p {
+    @if $size > 20px {
+      font-weight: bold;
+    }
+    @else {
+      font-style: italic;
+    }
+  }
+  a {
+    &:hover {
+      text-decoration: underline;
+      color: transparentize($color, 0.5);
+    }
+  }
+}
+@function random-color () {
+    $red: random(256)-1;
+    $green: random(256)-1;
+    $blue: random(256)-1;
+    $alpha: random(100) / 100;
+    @return rgba($red, $green, $blue, $alpha);
+}
+
+  body {
+;
+    background-color: random-color();}
+  h1 {
+    background-color: random-color();}
+  h3 {
+    background-color: random-color();}
+  h5 {
+    background-color: random-color();}
+  p {
+    background-color: random-color();}
+  a {
+    background-color: random-color();}
+
+
+@mixin color ($color) {
+  body {
+    background: $color;
+  }
+  p {
+    color: darken($color, 10%);
+    background: complement($color);
+  }
+  h1 {
+    font-size: blue($color) + px;
+  }
+  h3 {
+    color: invert($color);
+  }
+  h5 {
+    color: adjust_hue($color, 180);
+  }
+  a {
+    background: lighten($color, 50%);
+  }
+}
+
+@include color (#914)
+
 %clearfix {
   *zoom: 1;
   &:before,
